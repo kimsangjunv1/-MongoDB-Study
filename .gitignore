@@ -1,1 +1,8 @@
+# Vercel 관련 설정
 .vercel
+
+# 환경 변수 파일
+.env
+
+# Node.js 모듈
+node_modules
