@@ -2,6 +2,8 @@ const express = require("express");
 const router = express.Router();
 const User = require("../models/User");
 
+// 모델 구조에 맞는 route 별 액션 : 회원
+
 // 사용자 생성 라우트
 router.post("/register", async (req, res) => {
     try {

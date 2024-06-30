@@ -1,32 +1,40 @@
+// 1번: 필요한 모듈을 가져옵니다.
 const express = require("express");
-const mongoose = require('mongoose');
-
+const mongoose = require("mongoose");
 require("dotenv").config();
 
+// 2번: Express 애플리케이션을 생성하고, 포트 번호를 설정합니다.
 const app = express();
 const port = process.env.PORT || 3000;
 
-const MONGO_URI = process.env.MONGO_URI; // .env 파일에 MongoDB URI를 저장하고 불러옵니다.
+// 3번: .env 파일에서 MongoDB URI를 불러옵니다.
+const MONGO_URI = process.env.MONGO_URI;
 
+// 4번: Mongoose를 사용하여 MongoDB에 연결합니다.
 mongoose.connect(MONGO_URI, { useNewUrlParser: true, useUnifiedTopology: true })
     .then(() => {
-        console.log('MongoDB connected successfully');
+        console.log("몽고DB를 성공적으로 연결했어요");
         // 애플리케이션의 나머지 로직을 이곳에 추가합니다.
     })
     .catch(err => {
-        console.error('MongoDB connection error:', err);
+        console.error("몽고DB를 연결하는 중 오류가 발생했어요:", err);
     });
 
-app.use(express.json()) // JSON 요청 바디를 파싱하기 위한 미들웨어
+// 5번: JSON 요청 바디를 파싱하기 위한 미들웨어를 추가합니다.
+app.use(express.json()); // JSON 요청 바디를 파싱하기 위한 미들웨어
 
-// 루트 경로에 대한 간단한 핸들러 추가
-app.get('/', (req, res) => {
+// 6번: 루트 경로에 대한 간단한 핸들러를 추가합니다.
+app.get("/", (req, res) => {
     res.send("잘 작동하고 있어요");
 });
 
-// 사용자 라우트를 사용
+// 7번: 사용자 라우트를 사용합니다.
 app.use("/api/users", require("./routes/user"));
 
+// 게시물 라우트 사용
+app.use("/api/articles", require("./routes/article"));
+
+// 8번: 서버를 지정된 포트에서 시작합니다.
 app.listen(port, () => {
-    console.log(`서버가 정상적으로 작동중이에요, 포트 : ${port}`)
-})
+    console.log(`서버가 정상적으로 작동중이에요, 포트 : ${port}`);
+});

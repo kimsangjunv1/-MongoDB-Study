@@ -1,3 +1,4 @@
+// 모델 정의 : 회원
 const mongoose = require("mongoose");
 const Schema = mongoose.Schema;
 
