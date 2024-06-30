@@ -16,4 +16,14 @@ router.post("/register", async (req, res) => {
     }
 })
 
+// 사용자 목록 조회 라우트
+router.get("/", async (req, res) => {
+    try {
+        const users = await User.find();
+        res.json(users);
+    } catch (error) {
+        res.status(500).send('Server error');
+    }
+});
+
 module.exports = router;

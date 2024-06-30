@@ -18,7 +18,14 @@ mongoose.connect(MONGO_URI, { useNewUrlParser: true, useUnifiedTopology: true })
     });
 
 app.use(express.json()) // JSON 요청 바디를 파싱하기 위한 미들웨어
-app.use("/api/users", require("./routes/user")); // 사용자 라우트를 사용
+
+// 루트 경로에 대한 간단한 핸들러 추가
+app.get('/', (req, res) => {
+    res.send("잘 작동하고 있어요");
+});
+
+// 사용자 라우트를 사용
+app.use("/api/users", require("./routes/user"));
 
 app.listen(port, () => {
     console.log(`서버가 정상적으로 작동중이에요, 포트 : ${port}`)
